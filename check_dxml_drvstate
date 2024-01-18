@@ -393,7 +393,7 @@ fi
 case $DRV_STATE in
     0)  #stopped
         trace 2 "  Running $DXCMD -user $USERNDAP -password $PASSWD -getstartoption $DRV_NDAP"
-        DXCMD_OUTPUT=`$DXCMD -user "$USERNDAP" -password "$PASSWD" -getstartoption "$DRV_NDAP" 2>$LOGFILE`
+        DXCMD_OUTPUT=`$DXCMD -user "$USERNDAP" -password "$PASSWD" -getstartoption "$DRV_NDAP" 2>>$LOGFILE`
         DRV_STARTMODE=$?
         trace 2 "  DxCmd Output:"
         trace 2 "$DXCMD_OUTPUT"
@@ -441,7 +441,7 @@ case $DRV_STATE in
         DRV_STATE=$STATE_CRITICAL
         ;;
   255)  #generic error
-        echo -n "$DRIVERDISPLAY could not be checked due to an UNKNOWN ERROR (`egrep 'xception' $LOGFILE`)."
+        echo -n "$DRIVERDISPLAY could not be checked due to an UNKNOWN ERROR (`egrep 'xception' $LOGFILE | tail -n 1`)."
         DRV_STATE=$STATE_CRITICAL
         ;;
     *)  #other dxcmd error
